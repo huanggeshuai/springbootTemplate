@@ -1,0 +1,12 @@
+ext{
+    //springboot版本
+    springbootVerion = "2.1.4.RELEASE"
+    //druid 数据源版本
+    druidVersion = "1.1.16"
+    //mysql connection
+    mysqlVersion = "8.0.15"
+    //lombok版本
+    lombok = "1.18.6"
+    //querydsl版本
+    
+}

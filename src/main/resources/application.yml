@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    #引入数据库配置文件
+    include: db
+  jpa:
+    hibernate:
+      ddl-auto: update #自动更新
+    show-sql: true #显示sql
+logging:
+  config: classpath:log4j2.xml

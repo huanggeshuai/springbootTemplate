@@ -1,0 +1,32 @@
+data:
+  type: com.alibaba.druid.pool.DruidDataSource
+  driver: com.mysql.jdbc.Driver
+  url: jdbc:mysql:///template?useUnicode=true&characterEncoding=UTF-8&useSSL=false&allowMultiQueries=true&serverTimezone=GMT%2B8
+  username: root
+  #原密码
+  orginPassword: 123456
+  #被加密的密码
+  password: CSAfkOuNFMZZuqnLjUeAA0GjFGHZiKsu+lLjHj1jUpfRJghmlnKbXT08Mw6k2vTW1vidYdjznRbrcy94mBjt0w==
+  publicKey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAJZkWxAnCPv887qu3z5sk9O34GGuCLfR2u6ZIC9wZsvpunMirLCCvO2KrFGzuqCziSGNrPLSUQmr5LI4U8m58xECAwEAAQ==
+  privateKey: MIIBVgIBADANBgkqhkiG9w0BAQEFAASCAUAwggE8AgEAAkEAtyKH+QU9zqziE2Gi2kKf+w7aJZdbvzAHxIf23xbbQIKfgWLWmc/uMCLF7e7+STXADxhkt+eyvn/giIzKl9g2ZQIDAQABAkBVQldJYN5QjP5HhaoasO/oIxb+b0QAc2z6W05cuDhlBGFK+0dE8OHPEj8O4L7IwL7oUNqBlksOBYrnewtpy7tBAiEA4o118pG6OVZ0oAqQSrnxm+lPBkcEiKNvfdLXaNTS/LUCIQDO8FijbGys2smO87DhRlt+nNCnPayHcktNwBaAeNkQ8QIhALn6tuCykNWRC5x2D43Ip3b+SEk285nX0SbRdtQwIiQhAiEAvmisRoLnZA1UVLKp2D6yxUdpPdkjvOVPoNTUX5XStSECIQCQ+UJSvCPIO0vHWmZZNbVOW5FdutGyQ7SHaS/ulRKjWw==
+  initialSize: 1
+  minIdle: 1
+  maxActive: 20
+  maxIdle: 1
+  maxWait: 900000
+  defaultAutoCommit: true
+  removeAbandoned: true
+  removeAbandonedTimeout: 3000
+  whenExhaustedAction: 1
+  validationQuery: select 1
+  testOnBorrow: false
+  testOnReturn: false
+  timeBetweenEvictionRunsMillis: 10000
+  minEvictableIdleTimeMillis: 300000
+  testWhileIdle: true
+  poolPreparedStatements: true
+  maxPoolPreparedStatementPerConnectionSize: 20
+  filters: config,stat,wall
+  connectionProperties: config.decrypt=true;config.decrypt.key=
+  #decrypt 解密 如果为true 则需要通过阿里的工具加密,如果为false 则不需要加密 orginPassword为数据库密码
+  decrypt: true

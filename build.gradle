@@ -1,0 +1,55 @@
+plugins {
+    id 'java'
+}
+
+group 'com.huang'
+version '1.0-SNAPSHOT'
+
+//引入版本配置文件
+apply from:"config.gradle"
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    //排除所有logging依赖
+    all*.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+}
+
+
+dependencies {
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "$springbootVerion"
+    //spring starter
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter', version: "$springbootVerion"
+    //spring web
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web',version: "$springbootVerion"
+    //log4j2 日志
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-log4j2', version: "$springbootVerion"
+    //data-jpa
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: "$springbootVerion"
+    //spring security
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: "$springbootVerion"
+
+    //druid 数据库连接池
+    compile group: 'com.alibaba', name: 'druid', version: "$druidVersion"
+    //mysql connection
+    compile group: 'mysql', name: 'mysql-connector-java', version: "$mysqlVersion"
+    //lombox //自动生成get和set方法
+    compile group: 'org.projectlombok', name: 'lombok', version: "$lombok"
+    
+    //java反射工具类
+    compile group: 'org.reflections', name: 'reflections', version: '0.9.11'
+    
+    //简化sql 用java实现sql
+    compile group: 'com.querydsl', name: 'querydsl-jpa', version: '4.2.1'
+
+    //注解生成器
+    compile group: 'com.mysema.querydsl', name: 'querydsl-apt', version: '3.7.4'
+
+
+
+
+}
