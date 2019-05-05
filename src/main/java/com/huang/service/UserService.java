@@ -15,4 +15,10 @@ public interface UserService {
     long count();
 
     List<User> allUsr();
+
+    void delUser();
+
+    void addUser(User user);
+
+    User getUserByName(String userName);
 }

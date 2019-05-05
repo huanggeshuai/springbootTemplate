@@ -43,11 +43,9 @@ dependencies {
     //java反射工具类
     compile group: 'org.reflections', name: 'reflections', version: '0.9.11'
     
-    //简化sql 用java实现sql
-    compile group: 'com.querydsl', name: 'querydsl-jpa', version: '4.2.1'
+    //密码加密工具类
+    compile group: 'commons-codec', name: 'commons-codec', version: '1.12'
 
-    //注解生成器
-    compile group: 'com.mysema.querydsl', name: 'querydsl-apt', version: '3.7.4'
 
 
 

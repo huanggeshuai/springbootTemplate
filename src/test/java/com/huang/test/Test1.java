@@ -1,6 +1,7 @@
 package com.huang.test;
 
 import base.BaseTest;
+import com.huang.entity.User;
 import com.huang.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -21,7 +22,9 @@ public class Test1 extends BaseTest {
 
     @Test
     public void show(){
-        log.error("result11111:"+String.valueOf(userService.count()));
+        User user = User.builder().username("test").password("1111").build();
+        userService.addUser(user);
+        //log.error("result11111:"+userService.getUserByName("admin"));
     }
 
 }
