@@ -22,7 +22,7 @@ public class Test1 extends BaseTest {
 
     @Test
     public void show(){
-        User user = User.builder().username("test").password("1111").build();
+        User user = User.builder().username("admin").password("admin").build();
         userService.addUser(user);
         //log.error("result11111:"+userService.getUserByName("admin"));
     }

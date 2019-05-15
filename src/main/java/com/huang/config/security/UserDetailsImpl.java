@@ -1,8 +1,6 @@
 package com.huang.config.security;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -21,6 +19,8 @@ import java.util.List;
 @NoArgsConstructor
 public class UserDetailsImpl implements UserDetails {
 
+    @Getter
+    @Setter
     private Integer userId;
 
     private String userName;
@@ -29,6 +29,9 @@ public class UserDetailsImpl implements UserDetails {
 
     private List roles;
 
+    @Getter
+    @Setter
+    private String salt;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -64,4 +67,6 @@ public class UserDetailsImpl implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
 }

@@ -6,6 +6,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,7 +26,8 @@ public class LoginAuthenticationProvider extends DaoAuthenticationProvider {
     }
 
 
-    private PasswordEncoder passwordEncoder = getPasswordEncoder();
+    @Autowired
+    private PasswordEncoder passwordEncoder ;
     @Override
     protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
         if (authentication.getCredentials() == null) {
@@ -35,8 +37,11 @@ public class LoginAuthenticationProvider extends DaoAuthenticationProvider {
                     "AbstractUserDetailsAuthenticationProvider.badCredentials",
                     "Bad credentials"));
         }
-
         String presentedPassword = authentication.getCredentials().toString();
+        if(userDetails instanceof UserDetailsImpl){
+            userDetails = (UserDetailsImpl) userDetails;
+            presentedPassword =presentedPassword + ((UserDetailsImpl) userDetails).getSalt();
+        }
 
         if (!passwordEncoder.matches(presentedPassword, userDetails.getPassword())) {
             logger.debug("Authentication failed: password does not match stored value");

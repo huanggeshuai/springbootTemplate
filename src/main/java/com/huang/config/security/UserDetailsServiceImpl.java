@@ -28,8 +28,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userService.getUserByName(username);
-        String password = user.getPassword() + sysInfo.getDefaultSalt();
-        UserDetailsImpl userDetails = new UserDetailsImpl(user.getUserid(),user.getUsername(),user.getPassword(),null);
+        //String password = user.getPassword() + ;
+        UserDetailsImpl userDetails = new UserDetailsImpl(user.getUserid(),user.getUsername(),user.getPassword(),null,sysInfo.getDefaultSalt()+user.getSalt());
         return userDetails;
     }
 }
