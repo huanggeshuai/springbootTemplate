@@ -11,9 +11,9 @@ apply from:"config.gradle"
 sourceCompatibility = 1.8
 
 repositories {
-    mavenCentral()
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+    maven{ url 'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
 }
-
 configurations {
     //排除所有logging依赖
     all*.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'

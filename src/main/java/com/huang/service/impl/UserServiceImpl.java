@@ -3,6 +3,7 @@ package com.huang.service.impl;
 import com.huang.dao.UserRepository;
 import com.huang.entity.User;
 import com.huang.service.UserService;
+import com.huang.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -44,6 +45,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void addUser(User user) {
         String password = user.getPassword();
+        user.setSalt(SecurityUtils.getSalt());
         user.setPassword(passwordEncoder.encode(password));
         repository.save(user);
     }

@@ -38,7 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-       auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
+       auth.authenticationProvider(loginAuthenticationProvider()).userDetailsService(userService).passwordEncoder(passwordEncoder());
     }
 
 
@@ -46,8 +46,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * 加密策略 使用spring security自己的加密策略 BCryptPasswordEncoder
      * @return
      */
-    @Bean
+    @Bean(name = "bcrypt")
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean(name = "loginAuthenticationProvider")
+    public LoginAuthenticationProvider loginAuthenticationProvider(){
+        return new LoginAuthenticationProvider(userService);
     }
 }

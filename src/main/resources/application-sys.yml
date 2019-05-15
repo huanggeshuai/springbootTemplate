@@ -1,0 +1,8 @@
+sysinfo:
+  #默认用户名
+  defaultUserName: admin
+  #默认密码
+  defaultPassword: admin
+  #默认加密盐
+  defaultSalt: dqhcc
+

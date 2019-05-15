@@ -1,7 +1,7 @@
 spring:
   profiles:
     #引入数据库配置文件
-    include: db
+    include: db,sys
   jpa:
     hibernate:
       ddl-auto: update #自动更新
