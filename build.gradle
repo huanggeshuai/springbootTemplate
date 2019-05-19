@@ -45,7 +45,8 @@ dependencies {
     
     //密码加密工具类
     compile group: 'commons-codec', name: 'commons-codec', version: '1.12'
-
+    //json解析器和生成器 阿里巴巴出品
+    compile group: 'com.alibaba', name: 'fastjson', version: "$jsonVersion"
 
 
 

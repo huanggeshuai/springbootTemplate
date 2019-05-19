@@ -8,5 +8,5 @@ ext{
     //lombok版本
     lombok = "1.18.6"
     //querydsl版本
-    
+    jsonVersion = "1.2.58"
 }

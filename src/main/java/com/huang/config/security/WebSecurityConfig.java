@@ -32,8 +32,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Qualifier("userdeail")
     private UserDetailsService userService;
 
+    @Autowired
+    private SuccessHandle successHandle;
+
+    @Autowired
+    private FailureHandle failureHandle;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.formLogin().successHandler(successHandle).failureHandler(failureHandle);
         super.configure(http);
     }
 
