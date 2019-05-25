@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author huang
  * @Classname UserController
@@ -23,5 +26,16 @@ public class UserController {
                 .getAuthentication()
                 .getPrincipal();
         return "Hello Spring Security";
+    }
+
+    @GetMapping("/test")
+    public Object test() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+        Map map = new HashMap();
+        map.put("11",11);
+        map.put("sad",123);
+        return map;
     }
 }

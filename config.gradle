@@ -9,4 +9,7 @@ ext{
     lombok = "1.18.6"
     //querydsl版本
     jsonVersion = "1.2.58"
+    
+    //apache beanutils 版本
+    beanutilsVersion = "1.9.3"
 }
