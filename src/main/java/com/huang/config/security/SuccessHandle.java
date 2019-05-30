@@ -21,6 +21,7 @@ import java.util.Map;
  */
 @Component("successHandle")
 public class SuccessHandle implements AuthenticationSuccessHandler {
+
     /**
      * 这个方法是专门处理用户认证成功的 authentic 认证
      * @param request
