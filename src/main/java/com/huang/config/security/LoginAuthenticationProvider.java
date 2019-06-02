@@ -11,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * @ClassName LoginAuthenticationProvider
- * @Description  因为
+ * @Description  因为使用了自定义盐，所有重写了DaoAuthenticationProvider
  * @auther huang
  * @create 2019-05-15 16:47
  */
@@ -23,9 +23,9 @@ public class LoginAuthenticationProvider extends DaoAuthenticationProvider {
         //this.userService = userService;
     }
 
-
     @Autowired
     private PasswordEncoder passwordEncoder ;
+
     @Override
     protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
         if (authentication.getCredentials() == null) {
