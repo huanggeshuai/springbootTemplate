@@ -44,9 +44,11 @@ public class SuccessHandle implements AuthenticationSuccessHandler {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         Map<String, Object> successMap = new HashMap<>();
         successMap.put("success",true);
-        //封装token信息返回到前端
-        successMap.put("msg", JwtUtils.createJWT(sysInfo.getTtlMillis(),userDetails.getUserId(), userDetails.getUsername(),userDetails.getPassword()));
+        //封装token
+        String tokenInfo = JwtUtils.createJWT(sysInfo.getTtlMillis(),userDetails.getUserId(), userDetails.getUsername(),userDetails.getPassword());
+        successMap.put("msg", tokenInfo);
         String info = JSON.toJSONString(successMap);
+        response.setHeader("authority", tokenInfo);
         response.getWriter().write(info);
     }
 }

@@ -23,10 +23,12 @@ import java.nio.charset.Charset;
  * @Classname JwtAuthenticationFilter
  * @Description 前后端分离 需要重写AbstractAuthenticationProcessingFilter
  * AbstractAuthenticationProcessingFilter这个类主要做身份认证的
+ * 登陆会走这个过滤器
  * @Date 2019/5/25 15:32
  * @Created by huang
  */
 public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
+
     protected JwtAuthenticationFilter(RequestMatcher requiresAuthenticationRequestMatcher) {
         super(new AntPathRequestMatcher("/login","POST"));
     }
