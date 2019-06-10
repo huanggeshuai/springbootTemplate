@@ -5,4 +5,6 @@ sysinfo:
   defaultPassword: admin
   #默认加密盐
   defaultSalt: dqhcc
+  #默认jwt生存时间60min
+  ttlMillis: 3600000
 

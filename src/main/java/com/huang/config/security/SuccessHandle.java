@@ -1,6 +1,10 @@
 package com.huang.config.security;
 
 import com.alibaba.fastjson.JSON;
+import com.huang.config.sys.SysInfo;
+import com.huang.service.UserService;
+import com.huang.utils.JwtUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -22,6 +26,9 @@ import java.util.Map;
 @Component("successHandle")
 public class SuccessHandle implements AuthenticationSuccessHandler {
 
+    @Autowired
+    private SysInfo sysInfo;
+
     /**
      * 这个方法是专门处理用户认证成功的 authentic 认证
      * @param request
@@ -32,9 +39,13 @@ public class SuccessHandle implements AuthenticationSuccessHandler {
      */
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+        String userName = authentication.getName();
+
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         Map<String, Object> successMap = new HashMap<>();
         successMap.put("success",true);
-        successMap.put("msg","");
+        //封装token信息返回到前端
+        successMap.put("msg", JwtUtils.createJWT(sysInfo.getTtlMillis(),userDetails.getUserId(), userDetails.getUsername(),userDetails.getPassword()));
         String info = JSON.toJSONString(successMap);
         response.getWriter().write(info);
     }

@@ -23,7 +23,7 @@ public class User implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "userid", insertable = false, nullable = false)
-  private Integer userid;
+  private Long userid;
 
   /**
    * 用户名称

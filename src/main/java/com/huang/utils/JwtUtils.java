@@ -22,12 +22,13 @@ public class JwtUtils {
 
     /**
      * 用户登入成功后创建jwt信息返回给前端页面
-     * @param ttlMillis jwt信息生存时间
-     * @param user 当前用户
+     * @param ttlMillis 生存时间
+     * @param userId 用户唯一标识
+     * @param userName 用户名称
+     * @param password 用户密码
      * @return
      */
-    public static String createJWT(long ttlMillis, User user){
-
+    public static String createJWT(long ttlMillis, Long userId, String userName, String password){
         //设置生成算法这是使用hash256
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
@@ -35,14 +36,14 @@ public class JwtUtils {
 
         //创建clains私有声明
         Map<String, Object> clains = Maps.newHashMap();
-        clains.put("userId",user.getUserid());
-        clains.put("password",user.getPassword());
-        clains.put("userName",user.getUsername());
+        clains.put("userId", userId);
+        clains.put("password", password);
+        clains.put("userName", userName);
 
         //签名密钥
-        String key = user.getPassword();
+        String key = password;
         //生成签发人
-        String subject = user.getUsername();
+        String subject = userName;
         //为payload添加标准声明和私有声明
         JwtBuilder jwtBuilder = Jwts.builder()
                 //设置私有声明
@@ -66,14 +67,24 @@ public class JwtUtils {
     }
 
     /**
-     * Token的解密
-     * @param token
-     * @param user
+     * 用户登入成功后创建jwt信息返回给前端页面
+     * @param ttlMillis jwt信息生存时间
+     * @param user 当前用户
      * @return
      */
-    public static Claims paraseJWT(String token, User user){
+    public static String createJWT(long ttlMillis, User user){
+        return createJWT(ttlMillis, user.getUserid(), user.getUsername(), user.getPassword());
+    }
+
+    /**
+     * Token的解密
+     * @param token
+     * @param password 用户的密码
+     * @return
+     */
+    public static Claims paraseJWT(String token, String password){
         //签名密钥，和生成的密钥一模一样
-        String key = user.getPassword();
+        String key = password;
 
         Claims claims = Jwts.parser()
                 //设置声明密钥
@@ -87,13 +98,14 @@ public class JwtUtils {
     /**
      * 校验token
      * @param token
-     * @param user
+     * @param userName 用户名
+     * @param password 用户密码
      * @return
      */
-    public static boolean isVerify(String token, User user){
+    public static boolean isVerify(String token, String userName, String password){
 
         //签名密钥 和生成的签名的密钥一模一样
-        String key = user.getPassword();
+        String key = password;
 
         Claims claims = Jwts.parser()
                 //设置签名的密钥
@@ -101,7 +113,7 @@ public class JwtUtils {
                 //设置需要解析jwt
                 .parseClaimsJwt(token)
                 .getBody();
-        if(claims.get("password").equals(user.getPassword()) && claims.get("userName").equals(user.getUsername())){
+        if(claims.get("password").equals(password) && claims.get("userName").equals(userName)){
             return true;
         }
         return false;

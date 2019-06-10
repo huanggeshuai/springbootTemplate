@@ -21,7 +21,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Getter
     @Setter
-    private Integer userId;
+    private Long userId;
 
     private String userName;
 

@@ -32,4 +32,8 @@ public class SysInfo {
      */
     private String defaultSalt;
 
+    /**
+     * jwt默认生存时间
+     */
+    private Long ttlMillis;
 }
