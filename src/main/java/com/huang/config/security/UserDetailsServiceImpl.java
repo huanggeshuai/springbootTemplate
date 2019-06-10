@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 /**
  * @author huang
@@ -29,6 +30,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userService.getUserByName(username);
         //String password = user.getPassword() + ;
+        if(ObjectUtils.isEmpty(user)){
+            throw new UsernameNotFoundException("userName not found");
+        }
         UserDetailsImpl userDetails = new UserDetailsImpl(user.getUserid(),user.getUsername(),user.getPassword(),null,sysInfo.getDefaultSalt()+user.getSalt());
         return userDetails;
     }
