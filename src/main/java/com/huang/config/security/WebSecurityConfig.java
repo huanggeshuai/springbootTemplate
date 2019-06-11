@@ -58,6 +58,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
        // super.configure(http);
         //禁用csrf，应为不使用session
         http.csrf().disable()
+                //所有页面禁止访问
+                .authorizeRequests().antMatchers("/**").authenticated()
+                .and()
                 //禁用sessionManage 禁用session
                 .sessionManagement().disable()
                 //禁用form表单登入
