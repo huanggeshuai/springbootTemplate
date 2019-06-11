@@ -71,7 +71,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().addHeaderWriter(new StaticHeadersWriter(Arrays.asList(
                 new Header("Access-control-Allow-Origin","*"),
                 new Header("Access-Control-Expose-Headers","authentic"))))
-                .and() //拦截OPTIONS请求，直接返回header
+                .and()
+                //加入过滤器 目前顺序还是有点蒙蔽
                 .addFilterAt(jwtAuthenticationFilter(), LogoutFilter.class)
 
                 .addFilterAfter(jwtAuthenticationTokenFilter,jwtAuthenticationFilter().getClass());
