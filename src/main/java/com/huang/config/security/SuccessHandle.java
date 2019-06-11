@@ -48,7 +48,8 @@ public class SuccessHandle implements AuthenticationSuccessHandler {
         String tokenInfo = JwtUtils.createJWT(sysInfo.getTtlMillis(),userDetails.getUserId(), userDetails.getUsername(),userDetails.getPassword());
         successMap.put("msg", tokenInfo);
         String info = JSON.toJSONString(successMap);
-        response.setHeader("authority", tokenInfo);
+        response.setHeader("authentic", tokenInfo);
         response.getWriter().write(info);
+        response.getWriter().flush();
     }
 }

@@ -2,12 +2,17 @@ package com.huang.config.jwt;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.huang.config.security.FailureHandle;
+import com.huang.config.security.SuccessHandle;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
+import org.springframework.security.web.authentication.session.NullAuthenticatedSessionStrategy;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StreamUtils;
 import org.springframework.util.StringUtils;
@@ -29,8 +34,15 @@ import java.nio.charset.Charset;
  */
 public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
-    protected JwtAuthenticationFilter(RequestMatcher requiresAuthenticationRequestMatcher) {
+    @Autowired
+    private SuccessHandle successHandle;
+
+    @Autowired
+    private FailureHandle failureHandle;
+
+    public JwtAuthenticationFilter() {
         super(new AntPathRequestMatcher("/login","POST"));
+
     }
 
     /**

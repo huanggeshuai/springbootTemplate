@@ -2,9 +2,6 @@ package com.huang.utils;
 
 import com.alibaba.druid.filter.config.ConfigTools;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-
 /**
  * @ClassName DataBaseEncrypt
  * @Description 数据库加密
@@ -39,7 +36,6 @@ public class DataBaseEncrypt {
         String decryptPassword = ConfigTools.decrypt(publicKey,password);
 
         System.out.println("解密之后密码:"+ decryptPassword);
-
     }
 
 }
