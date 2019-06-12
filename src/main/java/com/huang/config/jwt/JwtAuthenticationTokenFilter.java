@@ -19,6 +19,8 @@ import org.springframework.security.authentication.InsufficientAuthenticationExc
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -33,6 +35,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author huang
@@ -81,9 +85,16 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             }
             //校验jwt token信息
             Claims claims = JwtUtils.paraseJWT(tokenInfo, userDetails.getPassword());
+
+
+            List list = new ArrayList();
+            GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("admin:main");
+            list.add(grantedAuthority);
+
+
             //封装usernamePasswordAuthenticationToken token信息
              authentication =
-                    new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
+                    new UsernamePasswordAuthenticationToken(userDetails,null, list);
              ((UsernamePasswordAuthenticationToken) authentication).
                      setDetails(authenticationDetailsSource.buildDetails(request));
              //将数据封装在context中
@@ -109,6 +120,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         //将异常信息抛出
         if(!ObjectUtils.isEmpty(failed)){
             failureHandle.onAuthenticationFailure(request,response,failed);
+            return;
         }else {
            // successHandle.onAuthenticationSuccess(request, response, authentication);
         }

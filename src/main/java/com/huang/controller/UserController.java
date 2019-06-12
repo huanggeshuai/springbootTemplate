@@ -1,5 +1,6 @@
 package com.huang.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +19,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+
     @GetMapping
     public String getUsers() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
@@ -26,6 +28,7 @@ public class UserController {
         return "Hello Spring Security";
     }
 
+    @PreAuthorize("hasAuthority('admin:main')")
     @PostMapping("/test")
     @ResponseBody
     public Object test() {
