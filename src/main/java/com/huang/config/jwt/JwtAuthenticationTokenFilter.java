@@ -101,6 +101,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
         }catch (JWTDecodeException e){
+            //说明该jwt不是不能被格式化（经过修改了）
             failed =new InsufficientAuthenticationException("jwt formatter error");;
         }
         catch (IllegalArgumentException e){
