@@ -5,7 +5,8 @@
       <profile default="true" name="Default" enabled="true" />
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="com.huang.springbootTemplate.generated" target="1.8" />
+      <module name="springbootTemplate.main" target="1.8" />
+      <module name="springbootTemplate.test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

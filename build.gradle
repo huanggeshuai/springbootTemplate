@@ -33,6 +33,12 @@ dependencies {
     //spring security
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: "$springbootVerion"
 
+    //spring boot data mongodb 
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: "$springbootVerion"
+
+    //spring boot data redis
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: "$springbootVerion"
+
     //druid 数据库连接池
     compile group: 'com.alibaba', name: 'druid', version: "$druidVersion"
     //mysql connection

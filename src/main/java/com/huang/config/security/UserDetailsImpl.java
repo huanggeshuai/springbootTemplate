@@ -36,7 +36,8 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return AuthorityUtils.createAuthorityList((String[])roles.toArray());
+       // return AuthorityUtils.createAuthorityList((String[])roles.toArray());
+        return null;
     }
 
     @Override
