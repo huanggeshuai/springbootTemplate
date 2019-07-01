@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.authentication.session.NullAuthenticatedSessionStrategy;
 import org.springframework.security.web.header.Header;
@@ -55,7 +56,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //禁用csrf，应为不使用session
         http.csrf().disable()
                 //所有页面禁止访问
-                .authorizeRequests().antMatchers("/**").authenticated()
+                .authorizeRequests().antMatchers("/druid/**").anonymous()
+                .antMatchers("/**").authenticated()
                 .and()
                 //禁用sessionManage 禁用session
                 .sessionManagement().disable()
@@ -65,13 +67,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors()
                 .and()   //添加header设置，支持跨域和ajax请求
                 .headers().addHeaderWriter(new StaticHeadersWriter(Arrays.asList(
-                new Header("Access-control-Allow-Origin","*"),
-                new Header("Access-Control-Expose-Headers","authentic"))))
+                new Header("Access-Control-Allow-Origin","*"),
+                new Header("Access-Control-Allow-Credentials","authentic"),
+                new Header("Access-Control-Expose-Headers","*"),
+                new Header("Access-Control-Expose-Methods","*"),
+                new Header("Access-Control-Allow-Headers ","Content-Type,*")
+
+                )))
+
                 .and()
                 //加入过滤器 目前顺序还是有点蒙蔽
                 .addFilterAt(jwtAuthenticationFilter(), LogoutFilter.class)
 
                 .addFilterAfter(jwtAuthenticationTokenFilter,jwtAuthenticationFilter().getClass());
+                //.addFilterAt(jwtAuthenticationFilter(), LogoutFilter.class)
+
+                //.addFilterAfter(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
     }
 
