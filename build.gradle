@@ -32,6 +32,11 @@ dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: "$springbootVerion"
     //spring security
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: "$springbootVerion"
+    //spring boot性能监控
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: "$springbootVerion"
+
+    //spring cache spring 缓存
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version: "$springbootVerion"
 
     //spring boot data mongodb 
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: "$springbootVerion"

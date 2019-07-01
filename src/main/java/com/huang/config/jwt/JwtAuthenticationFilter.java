@@ -41,7 +41,7 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
     private FailureHandle failureHandle;
 
     public JwtAuthenticationFilter() {
-        super(new AntPathRequestMatcher("/login","POST"));
+        super(new AntPathRequestMatcher("/login"));
 
     }
 

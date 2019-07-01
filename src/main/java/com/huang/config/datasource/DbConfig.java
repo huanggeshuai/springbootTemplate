@@ -1,8 +1,12 @@
 package com.huang.config.datasource;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.alibaba.druid.support.http.StatViewServlet;
+import com.alibaba.druid.support.http.WebStatFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -73,4 +77,20 @@ public class DbConfig {
     }
 
 
+    /**
+     *
+     * @return
+     */
+    @Bean
+    public ServletRegistrationBean druidServlet(){
+        ServletRegistrationBean registrationBean = new ServletRegistrationBean(new StatViewServlet(),"/druid/*");
+        registrationBean.addInitParameter("loginUsername","admin");
+        registrationBean.addInitParameter("loginPassword","admin");
+        return registrationBean;
+    }
+
+    public FilterRegistrationBean druidFilter(){
+        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new WebStatFilter());
+        return filterRegistrationBean;
+    }
 }

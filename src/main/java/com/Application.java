@@ -12,7 +12,7 @@ import org.springframework.cache.annotation.EnableCaching;
  * @Author huang
  */
 @SpringBootApplication
-@EnableCaching
+//@EnableCaching //开启缓存
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class);

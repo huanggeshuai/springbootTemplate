@@ -6,22 +6,18 @@ spring:
     hibernate:
       ddl-auto: update #自动更新
     show-sql: true #显示sql
-  data:
-    mongodb:
-      database: huangge
-      host: localhost
-      port: 27017
-  redis:
-    host: localhost
-    port: 6379
-  cache:
-    redis:
-      cache-null-values: false
-      key-prefix: dev
-      time-to-live: 20s
-      use-key-prefix: true
-
 logging:
   config: classpath:log4j2.xml
-debug: true
-#mongodb config
+
+#actuator
+management:
+  server:
+    port: 8004
+    servlet:
+      context-path: /actuator
+  #开启全部结点
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
