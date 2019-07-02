@@ -1,5 +1,29 @@
+
+
+buildscript {
+    repositories {
+        mavenCentral()
+        mavenLocal()
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven{ url 'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
+        maven { url "http://repo.spring.io/snapshot" }
+        maven { url "http://repo.spring.io/milestone" }
+        maven { url "http://repo.spring.io/release" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.4.RELEASE")
+    }
+}
+
+
+
 plugins {
     id 'java'
+    id 'idea'
+    id 'org.springframework.boot' version '2.1.4.RELEASE'
+
+    //id 'spring-boot'
+   // id 'io.spring.dependency-management'
 }
 
 group 'com.huang'
@@ -38,7 +62,7 @@ dependencies {
     //spring cache spring 缓存
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version: "$springbootVerion"
 
-    //spring boot data mongodb 
+    //spring boot data mongodb
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: "$springbootVerion"
 
     //spring boot data redis
@@ -48,9 +72,13 @@ dependencies {
     compile group: 'com.alibaba', name: 'druid', version: "$druidVersion"
     //mysql connection
     compile group: 'mysql', name: 'mysql-connector-java', version: "$mysqlVersion"
-    //lombox //自动生成get和set方法
-    compile group: 'org.projectlombok', name: 'lombok', version: "$lombok"
     
+    //lombox //自动生成get和set方法
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: "$lombok"
+
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: "$lombok"
+
+
     //java反射工具类
     compile group: 'org.reflections', name: 'reflections', version: '0.9.11'
     
@@ -71,3 +99,20 @@ dependencies {
 
 
 }
+
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+
+jar {
+    manifest {
+        attributes(
+                'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+                'Main-Class': 'com.Application'
+        )
+    }
+}
+
+
