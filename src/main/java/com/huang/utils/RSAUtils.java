@@ -215,9 +215,13 @@ public class RSAUtils {
         System.out.println("公有:"+Base64.byteArrayToAltBase64(publicKey));
         System.out.println("私有:"+Base64.byteArrayToAltBase64(privateKey));
         byte[] data = encryptByPrivateKey(msg.getBytes(),privateKey);
-        System.out.println("加密数据:"+Base64.byteArrayToAltBase64(data));
+        System.out.println("私钥加密数据:"+Base64.byteArrayToAltBase64(data));
         byte[] data1 = decryptByPublicKey(data,publicKey);
-        System.out.println(new String(data1));
+        System.out.println("公钥还原数据:"+new String(data1));
+        byte[] data2 = encryptByPublicKey(msg.getBytes(),publicKey);
+        System.out.println("公钥加密数据:"+Base64.byteArrayToAltBase64(data2));
+        byte[] data3 = decryptByPublicKey(data,publicKey);
+        System.out.println("私钥还原数据:"+new String(data3));
 
     }
 }

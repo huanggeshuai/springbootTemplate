@@ -7,4 +7,10 @@ sysinfo:
   defaultSalt: dqhcc
   #默认jwt生存时间60min 60*60*1000
   ttlMillis: 3600000
+  #公有key
+  publicKey: :)'f:!0'#]q'])b3$@%"!@`!!4';!$#"i@-"g@#.:t%0m{])<;~}j>d2_?pw{h55b3yepigl7p%j$%)sr[96]d`';b.r&:>cjs'i7l8?e}7&alinx$^>."53e'(3&{7?tv9}fe%ue{:l>`3~:>@ujo%>@<4d6u_~`c!fpe"+-vhod.5+0}.{a;o{0~ufuz>kb(8,~h|3$uz$+cn[b@)$!@!"
+  #私有key
+  privateKey: :))#dw)"!$!;"gkqhki'9w0"!@%&!!]#!m%wgg,d!g%!!o'"!)sy0^]~~)g41li:93~|+n"a(nlvf,6m-#|uk]::@iyt(3p,1@}1sus`w9y<wa.u|z95js_q{-f%;:8s(nd4}fc_bv+2?1h94]55}y`9^dkw9#6<g@9!7h3q5_l[w"+l4(4q+'h0vn7[gt~o2hb[m5+7:+[sfwlm&fc<7:>5yd&t!g:"!!%#g}"8{q{z]+}}(%7"[@4+_1-@1.'s4w"96wqq+(o)y}b%yt^4;s_sis]@~zii7~|nr>^#j#)`%3'o^wyum%e>i6h|9y5+m-73>xpzv@x'87e,s:t'{#jbw3"-`l`[wn|`wn?+}7(u%l.sp%5`~but~q)+`qv.:q{'<dr@'s1zzh(,!@,"!.4]vj5,yrfh%mfy4k<@stss_oj'0p[z~(4%`|f!,vwo+4a8'(,x.v)u[ugru#x6^2}v"x5g)iw[(#s]`,<p]z%#@@#7eruf7qih!(bpu!|`ry?(;0+{!_5tk{)x$(`u4_m]u1}zd}ygw~?f6|d4oqw4}[zj5w]7+:_5]v+h't9.3i.9!k%!o;pv0|r_ac<5teqgf[lpo33k[a!s+a#l?;desn8`?v`|17!66#7:0ft$2pu_)17m7s0"sz0b7js`o}b!_h~")@,"!)7#8fbid,[;_z+4<v"v#r(nw3n_xw:m^y":f^tar-v}bda3r4<'jeiizr!_,5'z'~3<!%>n;v#b&.eo^9tk5z0#@"ov@mhg^xy>yb(>$f^x"t?"1dnvrlix4u&1k_2{r,]'8^cxx&!]m""]s"mo|9}~"5pojwt.5b$0b`;+_@ax?;`=
+
+
 
