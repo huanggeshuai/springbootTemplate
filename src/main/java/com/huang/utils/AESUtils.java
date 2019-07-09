@@ -18,15 +18,21 @@ public class AESUtils {
     /**
      * 密钥
      */
-    private static final String KEY = "1234567887654321";// AES加密要求key必须要128个比特位（这里需要长度为16，否则会报错）
+    private static final String KEY = "1111111111111111";// AES加密要求key必须要128个比特位（这里需要长度为16，否则会报错）
 
     /**
      * 算法
      */
     private static final String ALGORITHMSTR = "AES/ECB/PKCS5Padding";
 
+    /** 算法名称 */
+    private static final String KEY_ALGORITHM = "AES";
+
+    /** 密钥长度 支持128 192 256 */
+    private static final Integer KEY_LENGTH = 128;
+
     public static void main(String[] args) throws Exception {
-        String content = "huanggeshuai666啊啊实打实大苏打大苏打撒旦啊是大大撒大啊顶起撒旦立刻集散地立刻就撒地方极乐世界大量减少到了炯符合我就会流口水的煎熬法律和大嫂女神的愤怒isj圣诞节佛i建瓯东西飞机殴打事件佛山大家立刻就但是房价快速浏览";
+        String content = "huanggeshuai666啊";
         System.out.println("加密前：" + content);
 
         System.out.println("加密密钥和解密密钥：" + KEY);
@@ -68,10 +74,10 @@ public class AESUtils {
      * @return 加密后的byte[]
      */
     private static byte[] aesEncryptToBytes(String content, String encryptKey) throws Exception {
-        KeyGenerator kgen = KeyGenerator.getInstance("AES");
-        kgen.init(128);
+        KeyGenerator kgen = KeyGenerator.getInstance(KEY_ALGORITHM);
+        kgen.init(KEY_LENGTH);
         Cipher cipher = Cipher.getInstance(ALGORITHMSTR);
-        cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(encryptKey.getBytes(), "AES"));
+        cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(encryptKey.getBytes(), KEY_ALGORITHM));
 
         return cipher.doFinal(content.getBytes("utf-8"));
     }
@@ -96,11 +102,11 @@ public class AESUtils {
      * @return 解密后的String
      */
     private static String aesDecryptByBytes(byte[] encryptBytes, String decryptKey) throws Exception {
-        KeyGenerator kgen = KeyGenerator.getInstance("AES");
-        kgen.init(128);
+        KeyGenerator kgen = KeyGenerator.getInstance(KEY_ALGORITHM);
+        kgen.init(KEY_LENGTH);
 
         Cipher cipher = Cipher.getInstance(ALGORITHMSTR);
-        cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(decryptKey.getBytes(), "AES"));
+        cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(decryptKey.getBytes(), KEY_ALGORITHM));
         byte[] decryptBytes = cipher.doFinal(encryptBytes);
 
         return new String(decryptBytes);
