@@ -71,7 +71,7 @@ public class RSAUtils {
     /**
      * privateKey加密
      * @param data 数据
-     * @param key 私钥
+     * @param key 私钥 pkcs8格式
      * @return
      */
     public static byte[] encryptByPrivateKey(byte[] data, byte[] key){
@@ -103,7 +103,7 @@ public class RSAUtils {
     /**
      * publicKey加密
      * @param data 数据
-     * @param key 私钥
+     * @param key 公钥 509
      * @return
      */
     public static byte[] encryptByPublicKey(byte[] data, byte[] key){
