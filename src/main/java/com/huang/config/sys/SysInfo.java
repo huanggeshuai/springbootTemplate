@@ -36,4 +36,11 @@ public class SysInfo {
      * jwt默认生存时间
      */
     private Long ttlMillis;
+
+    // 公钥
+    private String publicKey;
+
+    //私钥
+    private String privateKey;
+
 }
