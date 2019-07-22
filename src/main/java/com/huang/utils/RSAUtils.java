@@ -1,13 +1,11 @@
 package com.huang.utils;
 
-import com.alibaba.druid.util.Base64;
 import com.google.common.collect.Maps;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
-import java.io.UnsupportedEncodingException;
 import java.security.*;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
@@ -42,6 +40,11 @@ public class RSAUtils {
      * 自定义private_key
      */
     private static final String PRIVATE_KEY = "privateKey";
+
+    /**
+     * 加密算法签名 防止被篡改
+     */
+    public static final String SIGNATURE_ALGORITHM = "MD5withRSA";
 
     /**
      * 初始化key集合
@@ -197,29 +200,80 @@ public class RSAUtils {
         }
     }
 
+    /**
+     * 获取公钥
+     * @param keyMap
+     * @return
+     */
     public static byte[] getPublicKey(Map<String, Object> keyMap){
         Key key = (Key) keyMap.get(PUBLIC_KEY);
         return key.getEncoded();
     }
 
+    /**
+     * 获取私钥
+     * @param keyMap
+     * @return
+     */
     public static byte[] getPrivateKey(Map<String, Object> keyMap){
         Key key = (Key) keyMap.get(PRIVATE_KEY);
         return key.getEncoded();
     }
+
+
+    /**
+     * 校验数字签名
+     *
+     * @param data      加密数据
+     * @param publicKey 公钥
+     * @param sign      数字签名
+     * @return 校验成功返回true 失败返回false
+     * @throws Exception
+     */
+    public static boolean verify(byte[] data, String publicKey, String sign)
+            throws Exception {
+        // 解密由base64编码的公钥
+        byte[] keyBytes = Base64Utils.decryptBASE64(publicKey);
+        // 构造X509EncodedKeySpec对象
+        X509EncodedKeySpec keySpec = new X509EncodedKeySpec(keyBytes);
+        // KEY_ALGORITHM 指定的加密算法
+        KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
+        // 取公钥匙对象
+        PublicKey pubKey = keyFactory.generatePublic(keySpec);
+        Signature signature = Signature.getInstance(SIGNATURE_ALGORITHM);
+        signature.initVerify(pubKey);
+        signature.update(data);
+        // 验证签名是否正常
+        return signature.verify(Base64Utils.decryptBASE64(sign));
+    }
+
+    public static byte[] decryptByPrivateKey(byte[] data, String key) throws Exception{
+        // 对密钥解密
+        byte[] keyBytes = Base64Utils.decryptBASE64(key);
+        // 取得私钥
+        PKCS8EncodedKeySpec pkcs8KeySpec = new PKCS8EncodedKeySpec(keyBytes);
+        KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
+        Key privateKey = keyFactory.generatePrivate(pkcs8KeySpec);
+        // 对数据解密
+        Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
+        cipher.init(Cipher.DECRYPT_MODE, privateKey);
+        return cipher.doFinal(data);
+    }
+
 
     public static void main(String[] args) {
         Map map = initKey();
         String msg = "huanggeshuai666";
         byte[] publicKey = getPublicKey(map);
         byte[] privateKey = getPrivateKey(map);
-        System.out.println("公有:"+Base64.byteArrayToAltBase64(publicKey));
-        System.out.println("私有:"+Base64.byteArrayToAltBase64(privateKey));
+        System.out.println("公有:"+Base64Utils.encryptBASE64(publicKey));
+        System.out.println("私有:"+Base64Utils.encryptBASE64(privateKey));
         byte[] data = encryptByPrivateKey(msg.getBytes(),privateKey);
-        System.out.println("私钥加密数据:"+Base64.byteArrayToAltBase64(data));
+        System.out.println("私钥加密数据:"+Base64Utils.encryptBASE64(data));
         byte[] data1 = decryptByPublicKey(data,publicKey);
         System.out.println("公钥还原数据:"+new String(data1));
         byte[] data2 = encryptByPublicKey(msg.getBytes(),publicKey);
-        System.out.println("公钥加密数据:"+Base64.byteArrayToAltBase64(data2));
+        System.out.println("公钥加密数据:"+Base64Utils.encryptBASE64(data2));
         byte[] data3 = decryptByPublicKey(data,publicKey);
         System.out.println("私钥还原数据:"+new String(data3));
 
