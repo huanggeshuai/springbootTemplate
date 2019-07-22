@@ -10,7 +10,7 @@ import javax.crypto.spec.SecretKeySpec;
 /**
  * @author huang
  * @Classname AESUtils
- * @Description TODO
+ * @Description aes加密算法 ecb模式
  * @Date 2019/7/8 21:15
  * @Created by huang
  */
@@ -18,12 +18,17 @@ public class AESUtils {
     /**
      * 密钥
      */
-    private static final String KEY = "1111111111111111";// AES加密要求key必须要128个比特位（这里需要长度为16，否则会报错）
+    private static final String KEY = "1234567890123456";// AES加密要求key必须要128个比特位（这里需要长度为16，否则会报错）
 
     /**
      * 算法
      */
     private static final String ALGORITHMSTR = "AES/ECB/PKCS5Padding";
+
+    /**
+     * 偏移量
+     */
+    private static final String OFFSET = "ABCDEFGHIJKLMNOP";
 
     /** 算法名称 */
     private static final String KEY_ALGORITHM = "AES";
