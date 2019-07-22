@@ -50,27 +50,6 @@ public class AESUtils {
         System.out.println("解密后：" + decrypt);
     }
 
-    /**
-     * base 64 encode
-     * @param bytes 待编码的byte[]
-     * @return 编码后的base 64 code
-     */
-    private static String base64Encode(byte[] bytes){
-        return Base64.encodeBase64String(bytes);
-    }
-
-    /**
-     * base 64 decode
-     * @param base64Code 待解码的base 64 code
-     * @return 解码后的byte[]
-     * @throws Exception 抛出异常
-     */
-    private static byte[] base64Decode(String base64Code) throws Exception{
-        java.util.Base64.Decoder encoder = java.util.Base64.getDecoder();
-
-        return StringUtils.isEmpty(base64Code) ? null : encoder.decode(base64Code);
-    }
-
 
     /**
      * AES加密
@@ -96,7 +75,7 @@ public class AESUtils {
      * @return 加密后的base 64 code
      */
     private static String aesEncrypt(String content, String encryptKey) throws Exception {
-        return base64Encode(aesEncryptToBytes(content, encryptKey));
+        return Base64Utils.encryptBASE64(aesEncryptToBytes(content, encryptKey));
     }
 
     /**
@@ -126,6 +105,6 @@ public class AESUtils {
      * @return 解密后的string
      */
     private static String aesDecrypt(String encryptStr, String decryptKey) throws Exception {
-        return StringUtils.isEmpty(encryptStr) ? null : aesDecryptByBytes(base64Decode(encryptStr), decryptKey);
+        return StringUtils.isEmpty(encryptStr) ? null : aesDecryptByBytes(Base64Utils.decryptBASE64(encryptStr), decryptKey);
     }
 }
