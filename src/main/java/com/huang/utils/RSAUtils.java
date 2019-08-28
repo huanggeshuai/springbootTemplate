@@ -1,6 +1,11 @@
 package com.huang.utils;
 
 import com.google.common.collect.Maps;
+import org.bouncycastle.asn1.ASN1Object;
+import org.bouncycastle.asn1.pkcs.PKCSObjectIdentifiers;
+import org.bouncycastle.asn1.pkcs.PrivateKeyInfo;
+import org.bouncycastle.asn1.x509.AlgorithmIdentifier;
+import org.springframework.util.StringUtils;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -258,6 +263,19 @@ public class RSAUtils {
         Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
         cipher.init(Cipher.DECRYPT_MODE, privateKey);
         return cipher.doFinal(data);
+    }
+
+    //将pkcs1密钥转成pkcs8密钥
+    public static String pkcs1ConvertPkcs8(String rawPublicKey) throws Exception {
+        String result = null;
+        if(!StringUtils.isEmpty(rawPublicKey)){
+            byte[] encodeByte = Base64Utils.decryptBASE64(rawPublicKey);
+            AlgorithmIdentifier algorithmIdentifier = new AlgorithmIdentifier(PKCSObjectIdentifiers.pkcs8ShroudedKeyBag);
+            ASN1Object asn1Object = ASN1Object.fromByteArray(encodeByte);
+            PrivateKeyInfo privateKeyInfo = new PrivateKeyInfo(algorithmIdentifier, asn1Object);
+            byte[] pkcs8Bytes = privateKeyInfo.getDEREncoded();
+        }
+        return result;
     }
 
 
