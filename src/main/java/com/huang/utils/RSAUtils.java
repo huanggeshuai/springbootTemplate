@@ -292,7 +292,7 @@ public class RSAUtils {
         System.out.println("公钥还原数据:"+new String(data1));
         byte[] data2 = encryptByPublicKey(msg.getBytes(),publicKey);
         System.out.println("公钥加密数据:"+Base64Utils.encryptBASE64(data2));
-        byte[] data3 = decryptByPublicKey(data,publicKey);
+        byte[] data3 = decryptByPrivateKey(data2,privateKey);
         System.out.println("私钥还原数据:"+new String(data3));
 
     }
